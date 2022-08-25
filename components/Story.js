@@ -18,7 +18,7 @@ export default function Story(story) {
           <span class="favorite">
             <img class="heart" src="https://www.svgrepo.com/show/30066/heart.svg">
             Add To Favorites
-            </span>
+          </span>
         </div>
       </div>
     </div>

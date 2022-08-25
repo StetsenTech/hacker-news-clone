@@ -1,3 +1,5 @@
+import Comment from '../components/Comment.js';
+import Story from '../components/Story.js';
 import baseurl from '../utils/baseurl.js';
 import view from '../utils/view.js';
 
@@ -7,8 +9,8 @@ export default async function Item() {
   let hasError = false;
 
   try {
-    const story = await getStory();
-    const hasComments = story.comments.length > 6;
+    story = await getStory();
+    hasComments = story.comments.length > 0;
   } catch(error) {
     hasError = true;
     console.error(error);
@@ -23,14 +25,15 @@ export default async function Item() {
       ${Story(story)}
     </div>
     <hr/>
-    ${hasComments ? story.comments.map(comment => JSON.stringify(comment)).join('') : "No Comment"}
+    ${hasComments ? story.comments.map(comment => Comment(comment)).join('') : "No Comment"};
   `;
 }
 
 async function getStory() {
-  const storyId = window.location.hash.split('?id=');
-  const response = await fetch(`${baseurl}/items/${storyId}`);
+  const storyId = window.location.hash.split('?id=')[1];
+  const response = await fetch(`${baseurl}/item/${storyId}`);
   const story = await response.json();
 
   return story;
 }
+
